@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="row mt-3 mb-3 justify-content-between">
+          <div class="col-auto">
+            <button type="button" class="btn btn-secondary btn-sm back-btn">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i> back
+            </button>
+          </div>
+          <div class="col-auto edit-container">
+            <button type="button" class="btn btn-primary btn-sm edit-btn">
+              <i class="fa fa-pencil" aria-hidden="true"></i> edit
+            </button>
+          </div>
+          <div class="col-auto d-none cancel-container">
+            <button type="button" class="btn btn-danger btn-sm cancel-btn">
+              <i class="fa fa-pencil" aria-hidden="true"></i> cancel
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control view-field" id="title" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control view-field" id="description" rows="3"></textarea>
+        </div>
+        <button class="btn btn-primary btn-block submit-maddi-sannasi edit-button">Submit</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      $.ajax({
+        url: "/todo/list_api/?id="+window.location.pathname.split('/')[2],
+        success: function (data) {
+          var data = data[0];
+          $("#title").val(data.title);
+          $("#description").val(data.description);
+        },
+        error: function () {
+          alert("There was an error.");
+        }
+      });
+      $(".back-btn").click(function () {
+        window.location.href = "/todo/";
+      });
+      $("#image").change(function (e) {
+        var image = $(this)[0].files[0].name;
+        $($(this).next()).text(image)
+      });
+      $(".submit-maddi-sannasi").click(function () {
+        var title = $("#title").val();
+        var description = $("#description").val();
+        $.ajax({
+          url: "/todo/" + window.location.pathname.split('/')[2] + "/edit_api/",
+          type: 'post',
+          dataType: 'json',
+          contentType: 'application/json',
+          success: function (data) {
+            $('.edit-container').show();
+            $('.cancel-container').hide();
+            $('#title').addClass('view-field');
+            $('#description').addClass('view-field');
+            $('.edit-button').hide();
+          },
+          data: JSON.stringify({ "title": title, "description": description })
+        });
+
+      });
+      $('.edit-btn').click(function() {
+        $('.edit-container').hide();
+        $('.cancel-container').show();
+        $('.cancel-container').removeClass('d-none');
+        $('#title').removeClass('view-field');
+        $('#description').removeClass('view-field');
+        $('.edit-button').show();
+      })
+      $('.cancel-btn').click(function() {
+        $('.edit-container').show();
+        $('.cancel-container').hide();
+        $('#title').addClass('view-field');
+        $('#description').addClass('view-field');
+        $('.edit-button').hide();
+      })
+    });
+  </script>
+</body>
+
+</html>

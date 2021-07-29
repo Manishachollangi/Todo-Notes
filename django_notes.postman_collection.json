@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "cf837af2-8886-4ce6-9ee9-487ec7e781c9",
+		"name": "django_notes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "todo",
+			"item": [
+				{
+					"name": "list todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{todo_uri}}",
+							"host": [
+								"{{todo_uri}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail todo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{todo_uri}}1/",
+							"host": [
+								"{{todo_uri}}1"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add todo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{todo_uri}}add/",
+							"host": [
+								"{{todo_uri}}add"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit todo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{todo_uri}}1/edit/",
+							"host": [
+								"{{todo_uri}}1"
+							],
+							"path": [
+								"edit",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete todo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{todo_uri}}1/delete/",
+							"host": [
+								"{{todo_uri}}1"
+							],
+							"path": [
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
